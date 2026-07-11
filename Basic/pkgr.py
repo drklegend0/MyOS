@@ -95,6 +95,12 @@ def process_package(entry, snapshot_dir):
         os.remove(tmp)
 
 def main():
+    # Enforce syntax: pkgr update system
+    if len(sys.argv) < 3 or sys.argv[1] != "update" or sys.argv[2] != "system":
+        print("Usage: pkgr update system")
+        sys.argv = []  # Clear args to prevent unhandled behavior
+        sys.exit(1)
+
     try:
         entry = get_latest_version_entry()
         snapshot_dir = make_snapshot_dir(entry["version"])
