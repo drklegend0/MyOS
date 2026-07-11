@@ -19,7 +19,7 @@ import os
 import subprocess
 
 TOOLS_DIR = "/originos/tools"
-
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def discover_tools():
     """Any .py file in TOOLS_DIR becomes a command, named after the file
@@ -40,7 +40,7 @@ def run_tool(path, args):
     separate process. We just wait for it and report the result."""
     try:
         result = subprocess.run(
-            ["/bin/python3", path] + args,
+            ["/install/bin/python3", path] + args,
             stdin=sys.stdin,
             stdout=sys.stdout,
             stderr=sys.stderr,
@@ -49,6 +49,22 @@ def run_tool(path, args):
             print(f"[tool exited with code {result.returncode}]")
     except Exception as e:
         print(f"error running tool: {e}")
+
+
+def run_pkgr(args):
+    """Run pkgr.py from the boot.py directory as an isolated subprocess."""
+    pkgr_path = os.path.join(current_dir, "pkgr.py")
+    try:
+        result = subprocess.run(
+            [f"{current_dir}/install/bin/python3", pkgr_path] + args,
+            stdin=sys.stdin,
+            stdout=sys.stdout,
+            stderr=sys.stderr,
+        )
+        if result.returncode != 0:
+            print(f"[pkgr exited with code {result.returncode}]")
+    except Exception as e:
+        print(f"error running pkgr: {e}")
 
 
 BANNER = r"""
@@ -159,6 +175,7 @@ COMMANDS = {
     "uname": cmd_uname,
     "exit": cmd_exit,
     "quit": cmd_exit,
+    "pkgr": run_pkgr
 }
 
 
