@@ -22,7 +22,7 @@
                         "dest": "main.py"
                     },
                     {
-                        source": "pkgr.py",
+                        "source": "pkgr.py",
                         "dest": "pkgr.py"
                     }
                 ]
