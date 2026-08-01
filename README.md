@@ -1,1 +1,1 @@
-# OriginOS
+# MyOS
