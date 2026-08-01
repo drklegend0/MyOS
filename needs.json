@@ -1,8 +1,6 @@
 {
   "apt": [
-    "fastfetch",
-    "xorg",
-    "openbox"
+    "fastfetch"
   ],
   "flatpak": [
     "org.mozilla.firefox"
